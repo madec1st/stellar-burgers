@@ -1,14 +1,35 @@
 import { FC, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const BurgerConstructor: FC = () => {
+  const selectedIngredients = useSelector(
+    (state: RootState) => state.getIngredients.selected
+  );
+
+  const selectedBun = selectedIngredients.bun
+    ? ({ ...selectedIngredients.bun } as TConstructorIngredient)
+    : null;
+
+  const selectedFilling = Array.isArray(selectedIngredients.filling)
+    ? (selectedIngredients.filling.map((ingredients) => ({
+        ...ingredients
+      })) as TConstructorIngredient[])
+    : [];
+
+  if (selectedBun) {
+    selectedBun.id = nanoid();
+  }
+
+  selectedFilling.forEach((ingredient) => (ingredient.id = nanoid()));
+
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
+    bun: selectedBun,
+    ingredients: selectedFilling
   };
 
   const orderRequest = false;
@@ -29,8 +50,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  return null;
 
   return (
     <BurgerConstructorUI
