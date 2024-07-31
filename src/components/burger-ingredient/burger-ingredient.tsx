@@ -6,6 +6,7 @@ import { AppDispatch } from '@store';
 
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
@@ -13,9 +14,11 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const dispatch = useDispatch<AppDispatch>();
 
     const handleAdd = () => {
+      const ingredientWithId = { ...ingredient, id: nanoid() };
+
       ingredient.type === 'bun'
-        ? dispatch(addBun(ingredient))
-        : dispatch(addFilling(ingredient));
+        ? dispatch(addBun(ingredientWithId))
+        : dispatch(addFilling(ingredientWithId));
     };
 
     return (

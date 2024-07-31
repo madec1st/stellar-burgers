@@ -24,16 +24,11 @@ const App = () => (
       <AppHeader />
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<ConstructorPage />} />
+          <Route path='/' element={<ConstructorPage />}>
+            <Route path='ingredients/:id' />
+          </Route>
           <Route path='/feed' element={<Feed />}>
-            <Route
-              path=':number'
-              element={
-                <Modal title='Номер заказа' onClose={() => {}}>
-                  <OrderInfo />
-                </Modal>
-              }
-            />
+            <Route path=':number' />
           </Route>
           <Route path='/login' element={<Login />} /> {/* защищённый */}
           <Route path='/register' element={<Register />} /> {/* защищённый */}
@@ -45,34 +40,46 @@ const App = () => (
             {' '}
             {/* защищённый */}
             <Route path='orders' element={<ProfileOrders />}>
+              {' '}
               {/* защищённый */}
-              <Route
-                path=':number'
-                element={
-                  <Modal title='Номер заказа' onClose={() => {}}>
-                    <OrderInfo />
-                  </Modal>
-                }
-              />{' '}
-              {/* защищённый */}
+              <Route path=':number' /> {/* защищённый */}
             </Route>
           </Route>
           <Route path='*' element={<NotFound404 />} />
+          <Route path='' />
+          <Route path='' />
+          <Route path='' />
+          <Route path='' />
+          <Route path='' />
+          <Route path='' />
+          <Route path='' />
+        </Routes>
+        <Routes>
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='Название ингредиента' onClose={() => {}}>
+              <Modal title='Детали ингредиента' onClose={close}>
                 <IngredientDetails />
               </Modal>
             }
           />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
+          <Route
+            path='/feed/:number'
+            element={
+              <Modal title='Информация о заказе' onClose={close}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/orders/:number'
+            element={
+              <Modal title='Информация о заказе' onClose={close}>
+                <OrderInfo />
+              </Modal>
+            }
+          />{' '}
+          {/* защищённый */}
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,26 +1,28 @@
 import { FC, memo } from 'react';
 import { BurgerConstructorElementUI } from '@ui';
 import { BurgerConstructorElementProps } from './type';
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@store';
+import {
+  moveIngredientUp,
+  moveIngredientDown,
+  removeFilling
+} from '@slices/Ingredients';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {
-    const ingredients = useSelector(
-      (state: RootState) => state.getIngredients.selected
-    );
-    const selectedFilling = ingredients.filling;
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleMoveDown = () => {
-      index++;
+      dispatch(moveIngredientDown(index));
     };
 
     const handleMoveUp = () => {
-      index--;
+      dispatch(moveIngredientUp(index));
     };
 
     const handleClose = () => {
-      selectedFilling.filter((item) => item._id !== ingredient._id);
+      dispatch(removeFilling(ingredient));
     };
 
     return (

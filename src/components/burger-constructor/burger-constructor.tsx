@@ -1,45 +1,57 @@
 import { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@store';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { nanoid } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+import { closeModal, orderBurgerThunk } from '@slices/Order';
+import { clearConstructor } from '@slices/Ingredients';
 
 export const BurgerConstructor: FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const selectedIngredients = useSelector(
-    (state: RootState) => state.getIngredients.selected
+    (state: RootState) => state.ingredients.selected
+  );
+  const isAuth = useSelector((state: RootState) => state.user.isAuth);
+  const orderRequest = useSelector(
+    (state: RootState) => state.order.orderRequest
+  );
+  const orderModalData = useSelector(
+    (state: RootState) => state.order.orderModalData
   );
 
-  const selectedBun = selectedIngredients.bun
-    ? ({ ...selectedIngredients.bun } as TConstructorIngredient)
-    : null;
+  const selectedBun = selectedIngredients.bun;
+  const selectedFilling = selectedIngredients.filling;
 
-  const selectedFilling = Array.isArray(selectedIngredients.filling)
-    ? (selectedIngredients.filling.map((ingredients) => ({
-        ...ingredients
-      })) as TConstructorIngredient[])
-    : [];
-
-  if (selectedBun) {
-    selectedBun.id = nanoid();
-  }
-
-  selectedFilling.forEach((ingredient) => (ingredient.id = nanoid()));
-
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = {
     bun: selectedBun,
     ingredients: selectedFilling
   };
 
-  const orderRequest = false;
-
-  const orderModalData = null;
-
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+    if (isAuth === false) {
+      navigate('/login');
+    } else {
+      const ingredientsId = [
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map((ingredient) => ingredient._id)
+      ];
+
+      dispatch(orderBurgerThunk(ingredientsId))
+        .then((res) => {
+          dispatch(clearConstructor());
+          return res; //добавить в историю заказов?
+        })
+        .catch((err) => console.log(err));
+    }
   };
-  const closeOrderModal = () => {};
+
+  const closeOrderModal = () => {
+    dispatch(closeModal());
+  };
 
   const price = useMemo(
     () =>

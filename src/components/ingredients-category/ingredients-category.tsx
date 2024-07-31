@@ -10,13 +10,12 @@ export const IngredientsCategory = forwardRef<
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
   const selectedIngredients = useSelector(
-    (state: RootState) => state.getIngredients.selected
+    (state: RootState) => state.ingredients.selected
   );
 
   const selectedBun = selectedIngredients.bun;
   const selectedFilling = selectedIngredients.filling;
 
-  /** TODO: взять переменную из стора */
   const burgerConstructor = {
     bun: selectedBun,
     filling: selectedFilling

@@ -14,12 +14,8 @@ export const BurgerIngredients: FC = () => {
     dispatch(fetchIngredientsThunk());
   }, [dispatch]);
 
-  const ingredients = useSelector(
-    (state: RootState) => state.getIngredients.data
-  );
-  console.log(ingredients);
+  const ingredients = useSelector((state: RootState) => state.ingredients.data);
 
-  /** TODO: взять переменные из стора */
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   const mains = ingredients.filter((ingredient) => ingredient.type === 'main');
   const sauces = ingredients.filter(

@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getIngredientsApi } from '@api';
-import { TIngredient } from '@utils-types';
+import { TIngredient, TConstructorIngredient } from '@utils-types';
 
 type TInitialState = {
   data: TIngredient[];
   selected: {
-    filling: TIngredient[];
-    bun: TIngredient | null;
+    filling: TConstructorIngredient[];
+    bun: TConstructorIngredient | null;
   };
+  moreDetailsIngredient: TIngredient | null;
   loading: boolean;
   error: string | null;
 };
@@ -18,6 +19,7 @@ const initialState: TInitialState = {
     filling: [],
     bun: null
   },
+  moreDetailsIngredient: null,
   loading: false,
   error: null
 };
@@ -38,19 +40,42 @@ const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    updateData: (state, action: PayloadAction<TIngredient[]>) => {
-      state.data = action.payload;
-    },
-    addFilling: (state, action: PayloadAction<TIngredient>) => {
+    addFilling: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.selected.filling.push(action.payload);
     },
-    addBun: (state, action: PayloadAction<TIngredient>) => {
+    addBun: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.selected.bun = action.payload;
     },
-    removeFilling: (state, action: PayloadAction<TIngredient>) => {
+    moveIngredientUp: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      if (index > 0 && index < state.selected.filling.length) {
+        const temp = state.selected.filling[index - 1];
+        state.selected.filling[index - 1] = state.selected.filling[index];
+        state.selected.filling[index] = temp;
+      }
+    },
+    moveIngredientDown: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+      if (index >= 0 && index < state.selected.filling.length - 1) {
+        const temp = state.selected.filling[index + 1];
+        state.selected.filling[index + 1] = state.selected.filling[index];
+        state.selected.filling[index] = temp;
+      }
+    },
+    removeFilling: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.selected.filling = state.selected.filling.filter(
-        (ingredient) => ingredient._id !== action.payload._id
+        (ingredient) => ingredient.id !== action.payload.id
       );
+    },
+    viewDetails: (state, action: PayloadAction<TIngredient>) => {
+      state.moreDetailsIngredient = action.payload;
+    },
+    hideDetails: (state) => {
+      state.moreDetailsIngredient = null;
+    },
+    clearConstructor: (state) => {
+      state.selected.bun = null;
+      state.selected.filling = [];
     }
   },
   extraReducers: (builder) => {
@@ -70,6 +95,14 @@ const ingredientSlice = createSlice({
   }
 });
 
-export const { updateData, addFilling, addBun, removeFilling } =
-  ingredientSlice.actions;
+export const {
+  addFilling,
+  addBun,
+  moveIngredientUp,
+  moveIngredientDown,
+  removeFilling,
+  viewDetails,
+  hideDetails,
+  clearConstructor
+} = ingredientSlice.actions;
 export default ingredientSlice.reducer;
