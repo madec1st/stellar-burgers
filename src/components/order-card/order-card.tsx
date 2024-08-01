@@ -7,6 +7,7 @@ import { OrderCardUI } from '../ui/order-card';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@store';
 import { fetchIngredientsThunk } from '@slices/Ingredients';
+import { Preloader } from '@ui';
 
 const maxIngredients = 6;
 
@@ -55,7 +56,9 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
     };
   }, [order, ingredients]);
 
-  if (!orderInfo) return null;
+  if (!orderInfo) {
+    return <Preloader />;
+  }
 
   return (
     <OrderCardUI

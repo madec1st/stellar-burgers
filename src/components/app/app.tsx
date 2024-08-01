@@ -21,8 +21,8 @@ import store from '@store';
 const App = () => (
   <Provider store={store}>
     <div className={styles.app}>
-      <AppHeader />
       <BrowserRouter>
+        <AppHeader />
         <Routes>
           <Route path='/' element={<ConstructorPage />}>
             <Route path='ingredients/:id' />

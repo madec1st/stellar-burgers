@@ -3,7 +3,7 @@ import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@store';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { hideDetails, viewDetails } from '@slices/Ingredients';
 
 type TParams = {

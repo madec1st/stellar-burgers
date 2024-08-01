@@ -1,19 +1,12 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@store';
-import { fetchIngredientsThunk } from '@slices/Ingredients';
+import { RootState } from '@store';
 
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(fetchIngredientsThunk());
-  }, [dispatch]);
-
   const ingredients = useSelector((state: RootState) => state.ingredients.data);
 
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');

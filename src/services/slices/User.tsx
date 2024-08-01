@@ -1,17 +1,26 @@
 import {
+  getUserApi,
   loginUserApi,
   registerUserApi,
   TAuthResponse,
   TLoginData,
-  TRegisterData
+  TRegisterData,
+  TUserResponse,
+  updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type TUserState = {
-  user: TAuthResponse | null;
+  user: TUserResponse | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   isAuth: boolean;
   error: string | null;
+};
+
+type TUpdateUserData = {
+  name?: string;
+  email?: string;
+  password?: string;
 };
 
 const initialState: TUserState = {
@@ -47,6 +56,32 @@ export const loginUserThunk = createAsyncThunk<
   }
 });
 
+export const getUserDataThunk = createAsyncThunk<
+  TUserResponse,
+  void,
+  { rejectValue: string }
+>('user/getUserData', async (_, { rejectWithValue }) => {
+  try {
+    const response = await getUserApi();
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err.message);
+  }
+});
+
+export const updateUserDataThunk = createAsyncThunk<
+  TUserResponse,
+  TUpdateUserData,
+  { rejectValue: string }
+>('user/update', async (data, { rejectWithValue }) => {
+  try {
+    const response = await updateUserApi(data);
+    return response;
+  } catch (err: any) {
+    return rejectWithValue(err);
+  }
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -64,11 +99,40 @@ const userSlice = createSlice({
       })
       .addCase(
         loginUserThunk.fulfilled,
-        (state, action: PayloadAction<TAuthResponse>) => {
+        (state, action: PayloadAction<TUserResponse>) => {
           state.user = action.payload;
           state.isAuth = true;
           state.status = 'succeeded';
           state.error = null;
+        }
+      )
+      .addCase(getUserDataThunk.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserDataThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload as string;
+      })
+      .addCase(
+        getUserDataThunk.fulfilled,
+        (state, action: PayloadAction<TUserResponse>) => {
+          state.user = action.payload;
+          state.status = 'succeeded';
+        }
+      )
+      .addCase(updateUserDataThunk.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateUserDataThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload as string;
+      })
+      .addCase(
+        updateUserDataThunk.fulfilled,
+        (state, action: PayloadAction<TUserResponse>) => {
+          state.user = action.payload;
+          state.error = null;
+          state.status = 'succeeded';
         }
       );
   }
