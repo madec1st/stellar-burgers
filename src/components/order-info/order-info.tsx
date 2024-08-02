@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@store';
 import { fetchIngredientsThunk } from '@slices/Ingredients';
 import { useParams } from 'react-router-dom';
+import { feedApiThunk } from '@slices/Feed';
 
 type TParams = {
   number: string;
@@ -17,6 +18,7 @@ export const OrderInfo: FC = () => {
 
   useEffect(() => {
     dispatch(fetchIngredientsThunk());
+    dispatch(feedApiThunk());
   }, [dispatch]);
 
   const orders = useSelector((state: RootState) => state.feed.orders);

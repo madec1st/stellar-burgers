@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { TModalProps } from './type';
 import { ModalUI } from '@ui';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { OrderInfo } from '../order-info';
 
 const modalRoot = document.getElementById('modals');
 

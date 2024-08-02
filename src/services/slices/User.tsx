@@ -1,4 +1,5 @@
 import {
+  getOrdersApi,
   getUserApi,
   loginUserApi,
   registerUserApi,
@@ -9,9 +10,11 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TOrder, TOrdersData } from '@utils-types';
 
 type TUserState = {
   user: TUserResponse | null;
+  usersOrders: TOrder[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   isAuth: boolean;
   error: string | null;
@@ -25,6 +28,7 @@ type TUpdateUserData = {
 
 const initialState: TUserState = {
   user: null,
+  usersOrders: [],
   status: 'idle',
   isAuth: false,
   error: null
@@ -82,10 +86,28 @@ export const updateUserDataThunk = createAsyncThunk<
   }
 });
 
+export const getUserOrdersThunk = createAsyncThunk(
+  'user/orders',
+  async (_, thunkAPI) => {
+    try {
+      const data = await getOrdersApi();
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.usersOrders = [];
+      state.isAuth = false;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUserThunk.pending, (state) => {
@@ -134,8 +156,25 @@ const userSlice = createSlice({
           state.error = null;
           state.status = 'succeeded';
         }
+      )
+      .addCase(getUserOrdersThunk.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(getUserOrdersThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload as string;
+      })
+      .addCase(
+        getUserOrdersThunk.fulfilled,
+        (state, action: PayloadAction<TOrder[]>) => {
+          state.status = 'succeeded';
+          state.error = null;
+          state.usersOrders = action.payload;
+        }
       );
   }
 });
 
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

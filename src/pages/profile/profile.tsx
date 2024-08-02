@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from '@store';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Outlet, useLocation } from 'react-router-dom';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -54,13 +55,21 @@ export const Profile: FC = () => {
     }));
   };
 
+  const location = useLocation();
+  const isMainProfilePage = location.pathname === '/profile';
+
   return (
-    <ProfileUI
-      formValue={formValue}
-      isFormChanged={isFormChanged}
-      handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
-    />
+    <>
+      {isMainProfilePage && (
+        <ProfileUI
+          formValue={formValue}
+          isFormChanged={isFormChanged}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      <Outlet />
+    </>
   );
 };

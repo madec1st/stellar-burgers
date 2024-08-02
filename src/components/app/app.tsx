@@ -17,6 +17,7 @@ import { Modal, OrderInfo, IngredientDetails } from '@components';
 import { AppHeader } from '@components';
 import { Provider } from 'react-redux';
 import store from '@store';
+import { ProtectedRoute } from '../protected-route/protected-route';
 
 const App = () => (
   <Provider store={store}>
@@ -30,29 +31,51 @@ const App = () => (
           <Route path='/feed' element={<Feed />}>
             <Route path=':number' />
           </Route>
-          <Route path='/login' element={<Login />} /> {/* защищённый */}
-          <Route path='/register' element={<Register />} /> {/* защищённый */}
-          <Route path='/forgot-password' element={<ForgotPassword />} />{' '}
-          {/* защищённый */}
-          <Route path='/reset-password' element={<ResetPassword />} />{' '}
-          {/* защищённый */}
-          <Route path='/profile' element={<Profile />}>
-            {' '}
-            {/* защищённый */}
+          <Route
+            path='/login'
+            element={
+              <ProtectedRoute authRequired={false}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/register'
+            element={
+              <ProtectedRoute authRequired={false}>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/forgot-password'
+            element={
+              <ProtectedRoute authRequired={false}>
+                <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/reset-password'
+            element={
+              <ProtectedRoute authRequired={false}>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute authRequired>
+                <Profile />
+              </ProtectedRoute>
+            }
+          >
             <Route path='orders' element={<ProfileOrders />}>
-              {' '}
-              {/* защищённый */}
-              <Route path=':number' /> {/* защищённый */}
+              <Route path=':number' />
             </Route>
           </Route>
           <Route path='*' element={<NotFound404 />} />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
-          <Route path='' />
         </Routes>
         <Routes>
           <Route
@@ -72,14 +95,15 @@ const App = () => (
             }
           />
           <Route
-            path='/orders/:number'
+            path='/profile/orders/:number'
             element={
-              <Modal title='Информация о заказе' onClose={close}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute authRequired>
+                <Modal title='Информация о заказе' onClose={close}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
-          />{' '}
-          {/* защищённый */}
+          />
         </Routes>
       </BrowserRouter>
     </div>
