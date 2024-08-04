@@ -1,25 +1,27 @@
+import { updateUserDataThunk } from '@slices/User';
+import { useDispatch, useSelector } from '@store';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  const user = {
-    name: '',
-    email: ''
-  };
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user?.user);
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: '',
+    email: '',
     password: ''
   });
 
   useEffect(() => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      name: user?.name || '',
-      email: user?.email || ''
-    }));
+    if (user) {
+      setFormValue({
+        name: user.name,
+        email: user.email,
+        password: ''
+      });
+    }
   }, [user]);
 
   const isFormChanged =
@@ -29,15 +31,20 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    if (user) {
+      dispatch(updateUserDataThunk(formValue));
+    }
   };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
-    setFormValue({
-      name: user.name,
-      email: user.email,
-      password: ''
-    });
+    if (user) {
+      setFormValue({
+        name: user.name,
+        email: user.email,
+        password: ''
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,15 +54,21 @@ export const Profile: FC = () => {
     }));
   };
 
-  return (
-    <ProfileUI
-      formValue={formValue}
-      isFormChanged={isFormChanged}
-      handleCancel={handleCancel}
-      handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
-    />
-  );
+  const location = useLocation();
+  const isMainProfilePage = location.pathname === '/profile';
 
-  return null;
+  return (
+    <>
+      {isMainProfilePage && (
+        <ProfileUI
+          formValue={formValue}
+          isFormChanged={isFormChanged}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      <Outlet />
+    </>
+  );
 };
