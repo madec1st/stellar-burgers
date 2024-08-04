@@ -2,8 +2,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@store';
+import { useDispatch, useSelector } from '@store';
 import { fetchIngredientsThunk } from '@slices/Ingredients';
 import { useParams } from 'react-router-dom';
 import { feedApiThunk } from '@slices/Feed';
@@ -13,7 +12,7 @@ type TParams = {
 };
 
 export const OrderInfo: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const { number: numOrder } = useParams<TParams>();
 
   useEffect(() => {
@@ -21,9 +20,9 @@ export const OrderInfo: FC = () => {
     dispatch(feedApiThunk());
   }, [dispatch]);
 
-  const orders = useSelector((state: RootState) => state.feed.orders);
+  const orders = useSelector((state) => state.feed.orders);
   const ingredients: TIngredient[] = useSelector(
-    (state: RootState) => state.ingredients.data
+    (state) => state.ingredients.data
   );
 
   const orderData = useMemo(() => {

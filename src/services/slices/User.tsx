@@ -10,7 +10,7 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TOrder, TOrdersData } from '@utils-types';
+import { TOrder } from '@utils-types';
 
 type TUserState = {
   user: TUserResponse | null;
@@ -34,69 +34,42 @@ const initialState: TUserState = {
   error: null
 };
 
-export const registerUserThunk = createAsyncThunk<
-  TAuthResponse,
-  TRegisterData,
-  { rejectValue: string }
->('user/register', async (data, { rejectWithValue }) => {
-  try {
+export const registerUserThunk = createAsyncThunk<TAuthResponse, TRegisterData>(
+  'user/register',
+  async (data) => {
     const response = await registerUserApi(data);
     return response;
-  } catch (err: any) {
-    return rejectWithValue(err);
   }
-});
+);
 
-export const loginUserThunk = createAsyncThunk<
-  TAuthResponse,
-  TLoginData,
-  { rejectValue: string }
->('user/login', async (loginData: TLoginData, { rejectWithValue }) => {
-  try {
+export const loginUserThunk = createAsyncThunk<TAuthResponse, TLoginData>(
+  'user/login',
+  async (loginData: TLoginData) => {
     const response = await loginUserApi(loginData);
     return response;
-  } catch (err: any) {
-    return rejectWithValue(err);
   }
-});
+);
 
-export const getUserDataThunk = createAsyncThunk<
-  TUserResponse,
-  void,
-  { rejectValue: string }
->('user/getUserData', async (_, { rejectWithValue }) => {
-  try {
+export const getUserDataThunk = createAsyncThunk<TUserResponse, void>(
+  'user/getUserData',
+  async () => {
     const response = await getUserApi();
     return response;
-  } catch (err: any) {
-    return rejectWithValue(err.message);
   }
-});
+);
 
 export const updateUserDataThunk = createAsyncThunk<
   TUserResponse,
-  TUpdateUserData,
-  { rejectValue: string }
->('user/update', async (data, { rejectWithValue }) => {
-  try {
-    const response = await updateUserApi(data);
-    return response;
-  } catch (err: any) {
-    return rejectWithValue(err);
-  }
+  TUpdateUserData
+>('user/update', async (data) => {
+  const response = await updateUserApi(data);
+  return response;
 });
 
-export const getUserOrdersThunk = createAsyncThunk(
-  'user/orders',
-  async (_, thunkAPI) => {
-    try {
-      const data = await getOrdersApi();
-      return data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    }
-  }
-);
+export const getUserOrdersThunk = createAsyncThunk('user/orders', async () => {
+  const data = await getOrdersApi();
+  return data;
+});
 
 const userSlice = createSlice({
   name: 'user',
@@ -110,6 +83,14 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(registerUserThunk.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(registerUserThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload as string;
+      })
       .addCase(loginUserThunk.pending, (state) => {
         state.status = 'loading';
         state.error = null;

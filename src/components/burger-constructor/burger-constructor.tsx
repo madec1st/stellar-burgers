@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@store';
+import { AppDispatch, RootState, useDispatch, useSelector } from '@store';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useNavigate } from 'react-router-dom';
@@ -9,18 +8,14 @@ import { clearConstructor } from '@slices/Ingredients';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   const selectedIngredients = useSelector(
-    (state: RootState) => state.ingredients.selected
+    (state) => state.ingredients.selected
   );
   const isAuth = useSelector((state: RootState) => state.user.isAuth);
-  const orderRequest = useSelector(
-    (state: RootState) => state.order.orderRequest
-  );
-  const orderModalData = useSelector(
-    (state: RootState) => state.order.orderModalData
-  );
+  const orderRequest = useSelector((state) => state.order.orderRequest);
+  const orderModalData = useSelector((state) => state.order.orderModalData);
 
   const selectedBun = selectedIngredients.bun;
   const selectedFilling = selectedIngredients.filling;
@@ -35,15 +30,16 @@ export const BurgerConstructor: FC = () => {
     if (isAuth === false) {
       navigate('/login');
     } else {
+      const buns = [constructorItems.bun._id, constructorItems.bun._id];
       const ingredientsId = [
-        constructorItems.bun._id,
+        ...buns,
         ...constructorItems.ingredients.map((ingredient) => ingredient._id)
       ];
 
       dispatch(orderBurgerThunk(ingredientsId))
         .then((res) => {
           dispatch(clearConstructor());
-          return res; //добавить в историю заказов?
+          return res;
         })
         .catch((err) => console.log(err));
     }

@@ -17,15 +17,11 @@ const initialState: TOrderState = {
 export const orderBurgerThunk = createAsyncThunk<TOrder, string[]>(
   'order/orderBurger',
   async (ingredients, { rejectWithValue }) => {
-    try {
-      const response = await orderBurgerApi(ingredients);
-      if (response?.success) {
-        return response.order;
-      } else {
-        return rejectWithValue('Ошибка при отправке заказа');
-      }
-    } catch (err) {
-      return rejectWithValue(err);
+    const response = await orderBurgerApi(ingredients);
+    if (response?.success) {
+      return response.order;
+    } else {
+      return rejectWithValue('Ошибка при отправке заказа');
     }
   }
 );

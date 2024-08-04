@@ -1,7 +1,6 @@
-import { RootState } from '@store';
+import { useSelector } from '@store';
 import { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 type ProtectedRouteProps = {
   children: ReactNode;
@@ -12,7 +11,7 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
   authRequired
 }) => {
-  const isAuth = useSelector((state: RootState) => state.user.isAuth);
+  const isAuth = useSelector((state) => state.user.isAuth);
 
   if (authRequired && isAuth === false) {
     return <Navigate to={'/login'} replace />;

@@ -2,15 +2,14 @@ import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
+import { useSelector } from '@store';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
   const selectedIngredients = useSelector(
-    (state: RootState) => state.ingredients.selected
+    (state) => state.ingredients.selected
   );
 
   const selectedBun = selectedIngredients.bun;

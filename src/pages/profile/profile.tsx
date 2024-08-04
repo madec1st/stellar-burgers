@@ -1,13 +1,12 @@
 import { updateUserDataThunk } from '@slices/User';
-import { AppDispatch, RootState } from '@store';
+import { useDispatch, useSelector } from '@store';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const Profile: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.user.user?.user);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user?.user);
 
   const [formValue, setFormValue] = useState({
     name: '',
