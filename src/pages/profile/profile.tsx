@@ -1,4 +1,4 @@
-import { updateUserDataThunk } from '@slices/User';
+import { updateUserDataThunk } from '@slices/user/User';
 import { useDispatch, useSelector } from '@store';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';

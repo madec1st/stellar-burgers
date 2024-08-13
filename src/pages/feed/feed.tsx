@@ -1,4 +1,4 @@
-import { feedApiThunk } from '@slices/Feed';
+import { feedApiThunk } from '@slices/feed/Feed';
 import { useDispatch, useSelector } from '@store';
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';

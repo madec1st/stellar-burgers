@@ -1,4 +1,4 @@
-import { getUserOrdersThunk } from '@slices/User';
+import { getUserOrdersThunk } from '@slices/user/User';
 import { useDispatch, useSelector } from '@store';
 import { Preloader } from '@ui';
 import { ProfileOrdersUI } from '@ui-pages';

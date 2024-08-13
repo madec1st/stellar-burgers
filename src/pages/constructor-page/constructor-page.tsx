@@ -6,7 +6,7 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC, useEffect } from 'react';
-import { fetchIngredientsThunk } from '@slices/Ingredients';
+import { fetchIngredientsThunk } from '@slices/ingredients/Ingredients';
 
 export const ConstructorPage: FC = () => {
   const dispatch = useDispatch();

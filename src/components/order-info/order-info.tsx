@@ -3,9 +3,9 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useDispatch, useSelector } from '@store';
-import { fetchIngredientsThunk } from '@slices/Ingredients';
+import { fetchIngredientsThunk } from '@slices/ingredients/Ingredients';
 import { useParams } from 'react-router-dom';
-import { feedApiThunk } from '@slices/Feed';
+import { feedApiThunk } from '@slices/feed/Feed';
 
 type TParams = {
   number: string;

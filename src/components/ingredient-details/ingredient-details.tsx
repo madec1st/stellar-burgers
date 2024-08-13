@@ -7,7 +7,7 @@ import {
   fetchIngredientsThunk,
   hideDetails,
   viewDetails
-} from '@slices/Ingredients';
+} from '@slices/ingredients/Ingredients';
 
 type TParams = {
   id: string;

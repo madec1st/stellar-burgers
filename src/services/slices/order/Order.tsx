@@ -8,7 +8,7 @@ type TOrderState = {
   error: string | null;
 };
 
-const initialState: TOrderState = {
+export const orderInitialState: TOrderState = {
   orderRequest: false,
   orderModalData: null,
   error: null
@@ -28,7 +28,7 @@ export const orderBurgerThunk = createAsyncThunk<TOrder, string[]>(
 
 const orderSlice = createSlice({
   name: 'order',
-  initialState,
+  initialState: orderInitialState,
   reducers: {
     closeModal(state) {
       state.orderModalData = null;
@@ -39,6 +39,10 @@ const orderSlice = createSlice({
       state.orderRequest = true;
       state.error = null;
     });
+    builder.addCase(orderBurgerThunk.rejected, (state, action) => {
+      state.orderRequest = false;
+      state.error = action.payload as string;
+    });
     builder.addCase(
       orderBurgerThunk.fulfilled,
       (state, action: PayloadAction<TOrder>) => {
@@ -46,10 +50,6 @@ const orderSlice = createSlice({
         state.orderModalData = action.payload;
       }
     );
-    builder.addCase(orderBurgerThunk.rejected, (state, action) => {
-      state.orderRequest = false;
-      state.error = action.payload as string;
-    });
   }
 });
 

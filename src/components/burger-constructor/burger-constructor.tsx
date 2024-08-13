@@ -3,8 +3,8 @@ import { AppDispatch, RootState, useDispatch, useSelector } from '@store';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useNavigate } from 'react-router-dom';
-import { closeModal, orderBurgerThunk } from '@slices/Order';
-import { clearConstructor } from '@slices/Ingredients';
+import { closeModal, orderBurgerThunk } from '@slices/order/Order';
+import { clearConstructor } from '@slices/ingredients/Ingredients';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();

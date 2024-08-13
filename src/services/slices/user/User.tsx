@@ -26,7 +26,7 @@ type TUpdateUserData = {
   password?: string;
 };
 
-const initialState: TUserState = {
+export const userInitialState: TUserState = {
   user: null,
   usersOrders: [],
   status: 'idle',
@@ -73,7 +73,7 @@ export const getUserOrdersThunk = createAsyncThunk('user/orders', async () => {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: userInitialState,
   reducers: {
     logout: (state) => {
       state.user = null;
