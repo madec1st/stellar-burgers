@@ -1,8 +1,8 @@
-import { rootReducer } from "./rootReducer";
-import { feedInitialState } from "@slices/feed/Feed";
-import { ingredientInitialState } from "@slices/ingredients/Ingredients";
-import { orderInitialState } from "@slices/order/Order";
-import { userInitialState } from "@slices/user/User";
+import { rootReducer } from './rootReducer';
+import { feedInitialState } from '@slices/feed/Feed';
+import { ingredientInitialState } from '@slices/ingredients/Ingredients';
+import { orderInitialState } from '@slices/order/Order';
+import { userInitialState } from '@slices/user/User';
 import { describe, test, expect } from '@jest/globals';
 
 const initialState = rootReducer(undefined, { type: '@@INIT' });
@@ -24,8 +24,7 @@ describe('tests for rootReducer', () => {
     expect(initialState.order).toEqual(orderInitialState);
     expect(initialState.user).toEqual(userInitialState);
   }),
-
-  test('unknown action', () => {
-    expect(actionState).toEqual(initialState);
-  })
-})
+    test('unknown action', () => {
+      expect(actionState).toEqual(initialState);
+    });
+});

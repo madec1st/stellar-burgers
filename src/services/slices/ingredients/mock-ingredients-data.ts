@@ -1,10 +1,10 @@
-import { ingredientInitialState } from "./Ingredients";
+import { ingredientInitialState } from './Ingredients';
 
 export const initialState = ingredientInitialState;
 
 export const payloadMock = [
   {
-    _id: '643d69a5c3f7b9001cfa093c', 
+    _id: '643d69a5c3f7b9001cfa093c',
     name: 'Краторная булка N-200i',
     type: 'bun',
     proteins: 80,
@@ -17,7 +17,7 @@ export const payloadMock = [
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
   },
   {
-    _id: '643d69a5c3f7b9001cfa093e', 
+    _id: '643d69a5c3f7b9001cfa093e',
     name: 'Филе Люминесцентного тетраодонтимформа',
     type: 'main',
     proteins: 44,
@@ -30,7 +30,7 @@ export const payloadMock = [
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-03-large.png'
   },
   {
-    _id: '643vr5grd2g1frve', 
+    _id: '643vr5grd2g1frve',
     name: 'Салат из марсианских водорослей',
     type: 'main',
     proteins: 30,
@@ -43,7 +43,7 @@ export const payloadMock = [
     image_mobile: 'https://code.s3.yandex.net/react/code/salad-02-large.png'
   },
   {
-    _id: '7gfeg4r7g74sesb', 
+    _id: '7gfeg4r7g74sesb',
     name: 'Лунный соус',
     type: 'sauce',
     proteins: 17,
@@ -52,13 +52,15 @@ export const payloadMock = [
     calories: 152,
     price: 355,
     image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-    image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-    image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+    image_large:
+      'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+    image_mobile:
+      'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
   }
-]
+];
 
 export const fillingMock = {
-  _id: '643d69a5c3f7b9001cfa093e', 
+  _id: '643d69a5c3f7b9001cfa093e',
   name: 'Филе Люминесцентного тетраодонтимформа',
   type: 'main',
   proteins: 44,
@@ -70,10 +72,10 @@ export const fillingMock = {
   image_large: 'https://code.s3.yandex.net/react/code/meat-03-mobile.png',
   image_mobile: 'https://code.s3.yandex.net/react/code/meat-03-large.png',
   id: 'test_id_123'
-}
+};
 
 export const bunMock = {
-  _id: '643d69a5c3f7b9001cfa093c', 
+  _id: '643d69a5c3f7b9001cfa093c',
   name: 'Краторная булка N-200i',
   type: 'bun',
   proteins: 80,
@@ -85,7 +87,7 @@ export const bunMock = {
   image_large: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
   image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
   id: 'test_id_234'
-}
+};
 
 export const selectedFillingMock = {
   ...initialState,
@@ -93,7 +95,7 @@ export const selectedFillingMock = {
     ...initialState.selected,
     filling: [
       {
-        _id: '643d69a5c3f7b9001cfa093e', 
+        _id: '643d69a5c3f7b9001cfa093e',
         name: 'Филе Люминесцентного тетраодонтимформа',
         type: 'main',
         proteins: 44,
@@ -107,7 +109,7 @@ export const selectedFillingMock = {
         id: 'test_id_123'
       },
       {
-        _id: '643vr5grd2g1frve', 
+        _id: '643vr5grd2g1frve',
         name: 'Салат из марсианских водорослей',
         type: 'main',
         proteins: 30,
@@ -116,12 +118,14 @@ export const selectedFillingMock = {
         calories: 78,
         price: 665,
         image: 'https://code.s3.yandex.net/react/code/salad-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/salad-02-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/salad-02-large.png',
         id: 'test_id_124'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -130,24 +134,23 @@ export const selectedFillingMock = {
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
         id: 'test_id_125'
       }
     ]
   }
-}
+};
 
 export const expectedFillingState = {
   ...initialState,
   selected: {
     ...initialState.selected,
-    filling: [
-      ...initialState.selected.filling,
-      fillingMock
-    ]
+    filling: [...initialState.selected.filling, fillingMock]
   }
-}
+};
 
 export const expectedBunState = {
   ...initialState,
@@ -155,7 +158,7 @@ export const expectedBunState = {
     ...initialState.selected,
     bun: bunMock
   }
-}
+};
 
 export const expectedStateWithMovedUp = {
   ...initialState,
@@ -163,7 +166,7 @@ export const expectedStateWithMovedUp = {
     ...initialState.selected,
     filling: [
       {
-        _id: '643d69a5c3f7b9001cfa093e', 
+        _id: '643d69a5c3f7b9001cfa093e',
         name: 'Филе Люминесцентного тетраодонтимформа',
         type: 'main',
         proteins: 44,
@@ -177,7 +180,7 @@ export const expectedStateWithMovedUp = {
         id: 'test_id_123'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -186,12 +189,14 @@ export const expectedStateWithMovedUp = {
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
         id: 'test_id_125'
       },
       {
-        _id: '643vr5grd2g1frve', 
+        _id: '643vr5grd2g1frve',
         name: 'Салат из марсианских водорослей',
         type: 'main',
         proteins: 30,
@@ -200,13 +205,15 @@ export const expectedStateWithMovedUp = {
         calories: 78,
         price: 665,
         image: 'https://code.s3.yandex.net/react/code/salad-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/salad-02-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/salad-02-large.png',
         id: 'test_id_124'
       }
     ]
   }
-}
+};
 
 export const expectedStateWithMovedDown = {
   ...initialState,
@@ -214,7 +221,7 @@ export const expectedStateWithMovedDown = {
     ...initialState.selected,
     filling: [
       {
-        _id: '643vr5grd2g1frve', 
+        _id: '643vr5grd2g1frve',
         name: 'Салат из марсианских водорослей',
         type: 'main',
         proteins: 30,
@@ -223,12 +230,14 @@ export const expectedStateWithMovedDown = {
         calories: 78,
         price: 665,
         image: 'https://code.s3.yandex.net/react/code/salad-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/salad-02-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/salad-02-large.png',
         id: 'test_id_124'
       },
       {
-        _id: '643d69a5c3f7b9001cfa093e', 
+        _id: '643d69a5c3f7b9001cfa093e',
         name: 'Филе Люминесцентного тетраодонтимформа',
         type: 'main',
         proteins: 44,
@@ -242,7 +251,7 @@ export const expectedStateWithMovedDown = {
         id: 'test_id_123'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -251,13 +260,15 @@ export const expectedStateWithMovedDown = {
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
         id: 'test_id_125'
       }
     ]
   }
-}
+};
 
 export const expectedStateWithRemovedIngredient = {
   ...initialState,
@@ -265,7 +276,7 @@ export const expectedStateWithRemovedIngredient = {
     ...initialState.selected,
     filling: [
       {
-        _id: '643vr5grd2g1frve', 
+        _id: '643vr5grd2g1frve',
         name: 'Салат из марсианских водорослей',
         type: 'main',
         proteins: 30,
@@ -274,12 +285,14 @@ export const expectedStateWithRemovedIngredient = {
         calories: 78,
         price: 665,
         image: 'https://code.s3.yandex.net/react/code/salad-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/salad-02-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/salad-02-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/salad-02-large.png',
         id: 'test_id_124'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -288,10 +301,12 @@ export const expectedStateWithRemovedIngredient = {
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png',
         id: 'test_id_125'
       }
     ]
   }
-}
+};

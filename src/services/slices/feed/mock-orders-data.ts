@@ -9,7 +9,7 @@ export const payloadMock = {
       number: 5221,
       ingredients: [
         {
-          _id: '78gd4g85dr44', 
+          _id: '78gd4g85dr44',
           name: 'Луковые кольца с марсианскими специями',
           type: 'main',
           proteins: 38,
@@ -18,11 +18,13 @@ export const payloadMock = {
           calories: 36,
           price: 849,
           image: 'https://code.s3.yandex.net/react/code/onion-02.png',
-          image_large: 'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/onion-02-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/onion-02-large.png'
         },
         {
-          _id: '7gfeg4r7g74sesb', 
+          _id: '7gfeg4r7g74sesb',
           name: 'Лунный соус',
           type: 'sauce',
           proteins: 17,
@@ -31,8 +33,10 @@ export const payloadMock = {
           calories: 152,
           price: 355,
           image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-          image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
         }
       ]
     },
@@ -45,7 +49,7 @@ export const payloadMock = {
       number: 6954,
       ingredients: [
         {
-          _id: '78gd4g85dr44', 
+          _id: '78gd4g85dr44',
           name: 'Луковые кольца с марсианскими специями',
           type: 'main',
           proteins: 38,
@@ -54,11 +58,13 @@ export const payloadMock = {
           calories: 36,
           price: 849,
           image: 'https://code.s3.yandex.net/react/code/onion-02.png',
-          image_large: 'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/onion-02-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/onion-02-large.png'
         },
         {
-          _id: '7gfeg4r7g74sesb', 
+          _id: '7gfeg4r7g74sesb',
           name: 'Лунный соус',
           type: 'sauce',
           proteins: 17,
@@ -67,8 +73,10 @@ export const payloadMock = {
           calories: 152,
           price: 355,
           image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-          image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
         }
       ]
     },
@@ -81,7 +89,7 @@ export const payloadMock = {
       number: 7324,
       ingredients: [
         {
-          _id: '78gd4g85dr44', 
+          _id: '78gd4g85dr44',
           name: 'Луковые кольца с марсианскими специями',
           type: 'main',
           proteins: 38,
@@ -90,11 +98,13 @@ export const payloadMock = {
           calories: 36,
           price: 849,
           image: 'https://code.s3.yandex.net/react/code/onion-02.png',
-          image_large: 'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/onion-02-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/onion-02-large.png'
         },
         {
-          _id: '7gfeg4r7g74sesb', 
+          _id: '7gfeg4r7g74sesb',
           name: 'Лунный соус',
           type: 'sauce',
           proteins: 17,
@@ -103,12 +113,14 @@ export const payloadMock = {
           calories: 152,
           price: 355,
           image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-          image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-          image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+          image_large:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+          image_mobile:
+            'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
         }
       ]
     }
   ],
   total: 3,
   totalToday: 1
-}
+};
