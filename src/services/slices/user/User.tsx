@@ -11,12 +11,13 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { getCookie, setCookie, deleteCookie } from '@utils-cookie';
 
 type TUserState = {
   user: TUserResponse | null;
   usersOrders: TOrder[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  isAuth: boolean;
+  isAuth: boolean | null;
   error: string | null;
 };
 
@@ -26,11 +27,11 @@ type TUpdateUserData = {
   password?: string;
 };
 
-const initialState: TUserState = {
+export const userInitialState: TUserState = {
   user: null,
   usersOrders: [],
   status: 'idle',
-  isAuth: false,
+  isAuth: null,
   error: null
 };
 
@@ -46,6 +47,8 @@ export const loginUserThunk = createAsyncThunk<TAuthResponse, TLoginData>(
   'user/login',
   async (loginData: TLoginData) => {
     const response = await loginUserApi(loginData);
+    setCookie('accessToken', response.accessToken);
+    localStorage.setItem('refreshToken', response.refreshToken);
     return response;
   }
 );
@@ -73,12 +76,14 @@ export const getUserOrdersThunk = createAsyncThunk('user/orders', async () => {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: userInitialState,
   reducers: {
     logout: (state) => {
       state.user = null;
       state.usersOrders = [];
       state.isAuth = false;
+      deleteCookie('accessToken');
+      localStorage.removeItem('refreshToken');
     }
   },
   extraReducers: (builder) => {
@@ -119,6 +124,7 @@ const userSlice = createSlice({
       .addCase(
         getUserDataThunk.fulfilled,
         (state, action: PayloadAction<TUserResponse>) => {
+          state.isAuth = true;
           state.user = action.payload;
           state.status = 'succeeded';
         }

@@ -16,11 +16,19 @@ import { Modal, OrderInfo, IngredientDetails } from '@components';
 
 import { AppHeader } from '@components';
 import { ProtectedRoute } from '../protected-route/protected-route';
+import { useDispatch } from '@store';
+import { useEffect } from 'react';
+import { getUserDataThunk } from '@slices/user/User';
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const state = location.state as { background?: Location };
   const backgroundLocation = state?.background;
+
+  useEffect(() => {
+    dispatch(getUserDataThunk());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
@@ -70,9 +78,8 @@ const App = () => {
             </ProtectedRoute>
           }
         >
-          <Route path='orders' element={<ProfileOrders />}>
-            <Route path=':number' element={<OrderInfo />} />
-          </Route>
+          <Route path='orders' element={<ProfileOrders />} />
+          <Route path='orders/:number' element={<OrderInfo />} />
         </Route>
         <Route path='*' element={<NotFound404 />} />
       </Routes>

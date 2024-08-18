@@ -8,7 +8,7 @@ type TFeedState = TOrdersData & {
   error: string | null;
 };
 
-const initialState: TFeedState = {
+export const feedInitialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -24,7 +24,7 @@ export const feedApiThunk = createAsyncThunk('feed', async () => {
 
 const feedSlice = createSlice({
   name: 'feed',
-  initialState,
+  initialState: feedInitialState,
   reducers: {
     viewFullOrder: (state, action: PayloadAction<TOrder>) => {
       state.moreDetailsOrder = action.payload;

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { addBun, addFilling } from '@slices/Ingredients';
+import { addBun, addFilling } from '@slices/ingredients/Ingredients';
 import { useDispatch } from '@store';
 
 import { BurgerIngredientUI } from '@ui';

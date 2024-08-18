@@ -2,7 +2,7 @@ import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch } from '@store';
 import { useNavigate } from 'react-router-dom';
-import { loginUserThunk } from '@slices/User';
+import { getUserDataThunk, loginUserThunk } from '@slices/user/User';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +12,11 @@ export const Login: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }));
-    navigate('/', { replace: true });
+    dispatch(loginUserThunk({ email, password }))
+      .unwrap()
+      .then(() => {
+        navigate('/', { replace: true });
+      });
   };
 
   return (

@@ -13,7 +13,7 @@ type TInitialState = {
   error: string | null;
 };
 
-const initialState: TInitialState = {
+export const ingredientInitialState: TInitialState = {
   data: [],
   selected: {
     filling: [],
@@ -34,7 +34,7 @@ export const fetchIngredientsThunk = createAsyncThunk(
 
 const ingredientSlice = createSlice({
   name: 'ingredients',
-  initialState,
+  initialState: ingredientInitialState,
   reducers: {
     addFilling: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.selected.filling.push(action.payload);

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ProfileMenuUI } from '@ui';
 import { useDispatch } from '@store';
-import { logout } from '@slices/User';
+import { logout } from '@slices/user/User';
 
 export const ProfileMenu: FC = () => {
   const { pathname } = useLocation();
