@@ -1,5 +1,17 @@
-
 /// <reference types="cypress" />
+
+const dataSelectors = {
+  bunTop: '[data-cy="bun-top"]',
+  bunBottom: '[data-cy="bun-bottom"]',
+  ingredient: '[data-cy="ingredient"]',
+  bunType: '[data-cy-type="bun"]',
+  mainType: '[data-cy-type="main"]',
+  sauceType: '[data-cy-type="sauce"]',
+  modal: '[data-cy="modal"]',
+  modalCloseButton: '[data-cy="modal_close-button"]',
+  overlay: '[data-cy="overlay"]',
+  orderButton: '[ data-cy="order-button"]'
+}
 
 describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
   beforeEach(() => {
@@ -11,7 +23,7 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
     cy.intercept('GET', '/api/auth/user', { fixture: 'user' }).as('getUser');
     cy.intercept('POST', '/api/orders', { fixture: 'userOrder' }).as('postToOrders');
 
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
     cy.setCookie('accessToken', 'newAccessToken');
     cy.setCookie('refreshToken', 'newRefreshToken');
 
@@ -34,25 +46,24 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
     }),
   
     it('all ingredients are displayed', () => {
-      cy.get('[data-cy-type="bun"]').should('have.length.at.least', 1);
-      cy.get('[data-cy-type="main"]').should('have.length.at.least', 1);
-      cy.get('[data-cy-type="sauce"]').should('have.length.at.least', 1)
+      cy.get(dataSelectors.bunType).should('have.length.at.least', 1);
+      cy.get(dataSelectors.mainType).should('have.length.at.least', 1);
+      cy.get(dataSelectors.sauceType).should('have.length.at.least', 1)
     })
   }), 
 
   describe('all ingredients are added to the constructor', () => {
     it('the buns are added', () => {
-      cy.get('[data-cy-type="bun"]').first().within(() => {
+      cy.get(dataSelectors.bunType).first().within(() => {
         cy.get('button').contains('Добавить').click()
       });
 
-      cy.get('[data-cy="bun-top"]').should('exist').then((bun) => {
+      cy.get(dataSelectors.bunTop).should('exist').then((bun) => {
         const addedBunTopId = bun.attr('data-cy-id');
-        cy.log('Added bun top ID:', addedBunTopId);
         expect(addedBunTopId).to.exist;
       })
 
-      cy.get('[data-cy="bun-bottom"]').should('exist').then((bun) => {
+      cy.get(dataSelectors.bunBottom).should('exist').then((bun) => {
         const addedBunBottomId = bun.attr('data-cy-id');
         expect(addedBunBottomId).to.exist;
       })
@@ -62,7 +73,7 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
         const buns = ingredients.filter((item => item.type === 'bun'));
         const bunsIds = buns.map(item => item._id);
 
-        cy.get('[data-cy="bun-top"], [data-cy="bun-bottom"]').then((buns) => {
+        cy.get(`${dataSelectors.bunTop, dataSelectors.bunBottom}`).then((buns) => {
           const addedBunsIds = buns.toArray().map((bun) => bun.getAttribute('data-cy-id'));
           const isBunInConstructor = bunsIds.some(bunId => addedBunsIds.includes(bunId));
           expect(isBunInConstructor).to.be.true;
@@ -71,11 +82,11 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
     }),
 
     it('the filling are added', () => {
-      cy.get('[data-cy-type="main"], [data-cy-type="sauce"]').first().within(() => {
+      cy.get(`${dataSelectors.mainType, dataSelectors.sauceType}`).first().within(() => {
         cy.get('button').contains('Добавить').click()
       });
 
-      cy.get('[data-cy="ingredient"]').should('exist').then((ingredient) => {
+      cy.get(dataSelectors.ingredient).should('exist').then((ingredient) => {
         const addedIngredientId = ingredient.attr('data-cy-id');
         expect(addedIngredientId).to.exist;
       });
@@ -85,7 +96,7 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
         const fillingIngredients = ingredients.filter((item => item.type === 'main' || item.type === 'sauce'));
         const fillingIds = fillingIngredients.map(item => item._id);
       
-        cy.get('[data-cy="ingredient"]').then((ingredients) => {
+        cy.get(dataSelectors.ingredient).then((ingredients) => {
           const addedIngredientIds = ingredients.toArray().map((ingredient) => ingredient.getAttribute('data-cy-id'));
           const isIngredientInConstructor = fillingIds.some(fillingId => addedIngredientIds.includes(fillingId));
           expect(isIngredientInConstructor).to.be.true;
@@ -96,47 +107,47 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
 
   describe('interaction with modals', () => {
     it('the modal is opened', () => {
-      cy.get('[data-cy-type="bun"], [data-cy-type="main"], [data-cy-type="sauce"]').first().click();
-      cy.get('[data-cy="modal"]').should('be.visible');
-      cy.get('[data-cy="modal"]').contains('Детали ингредиента').should('be.visible');
+      cy.get(`${dataSelectors.bunType, dataSelectors.mainType, dataSelectors.sauceType}`).first().click();
+      cy.get(dataSelectors.modal).should('be.visible');
+      cy.get(dataSelectors.modal).contains('Детали ингредиента').should('be.visible');
     }),
 
     it('the modal is closed by click close button', () => {
-      cy.get('[data-cy-type="bun"], [data-cy-type="main"], [data-cy-type="sauce"]').first().click();
-      cy.get('[data-cy="modal_close-button"]').click();
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.get(`${dataSelectors.bunType, dataSelectors.mainType, dataSelectors.sauceType}`).first().click();
+      cy.get(dataSelectors.modalCloseButton).click();
+      cy.get(dataSelectors.modal).should('not.exist');
     }),
 
     it('the modal is closed by click overlay', () => {
-      cy.get('[data-cy-type="bun"], [data-cy-type="main"], [data-cy-type="sauce"]').first().click();
-      cy.get('[data-cy="overlay"]').click({ force: true });
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.get(`${dataSelectors.bunType, dataSelectors.mainType, dataSelectors.sauceType}`).first().click();
+      cy.get(dataSelectors.overlay).click({ force: true });
+      cy.get(dataSelectors.modal).should('not.exist');
     })
   }),
 
   describe('the order placed successfully', () => {
     it('the placing after authorization', () => {
-      cy.get('[data-cy-type="bun"]').first().within(() => {
+      cy.get(dataSelectors.bunType).first().within(() => {
         cy.get('button').contains('Добавить').click();
       });
-      cy.get('[data-cy-type="main"]').first().within(() => {
+      cy.get(dataSelectors.mainType).first().within(() => {
         cy.get('button').contains('Добавить').click();
       });
-      cy.get('[data-cy-type="sauce"]').first().within(() => {
+      cy.get(dataSelectors.sauceType).first().within(() => {
         cy.get('button').contains('Добавить').click();
       });
 
-      cy.get('[ data-cy="order-button"]').should('exist').click();
+      cy.get(dataSelectors.orderButton).should('exist').click();
       cy.wait('@postToOrders');
 
-      cy.get('[data-cy="modal"]').contains('идентификатор заказа').should('be.visible');
+      cy.get(dataSelectors.modal).contains('идентификатор заказа').should('be.visible');
       cy.contains('66123').should('exist');
-      cy.get('[data-cy="modal_close-button"]').click();
-      cy.get('[data-cy="modal"]').should('not.exist');
+      cy.get(dataSelectors.modalCloseButton).click();
+      cy.get(dataSelectors.modal).should('not.exist');
 
-      cy.get('[data-cy="bun-top"]').should('not.exist');
-      cy.get('[data-cy="bun-bottom"]').should('not.exist');
-      cy.get('[data-cy="ingredient"]').should('not.exist');
+      cy.get(dataSelectors.bunTop).should('not.exist');
+      cy.get(dataSelectors.bunBottom).should('not.exist');
+      cy.get(dataSelectors.ingredient).should('not.exist');
     })
   })
 })
