@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from '@store';
 import { fetchIngredientsThunk } from '@slices/ingredients/Ingredients';
 import { useParams } from 'react-router-dom';
 import { feedApiThunk } from '@slices/feed/Feed';
+import { getUserOrdersThunk } from '@slices/user/User';
 
 type TParams = {
   number: string;

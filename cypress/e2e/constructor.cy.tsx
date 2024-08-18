@@ -4,13 +4,24 @@
 describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
   beforeEach(() => {
     cy.fixture('ingredients').as('ingredientsData');
-    cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients' }).as('getIngredients')
+    cy.fixture('user').as('userData');
+    cy.fixture('userOrder').as('userOrderData');
+
+    cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients' }).as('getIngredients');
+    cy.intercept('GET', '/api/auth/user', { fixture: 'user' }).as('getUser');
+    cy.intercept('POST', '/api/orders', { fixture: 'userOrder' }).as('postToOrders');
+
     cy.visit('http://localhost:4000');
-    
+    cy.setCookie('accessToken', 'newAccessToken');
+    cy.setCookie('refreshToken', 'newRefreshToken');
+
+    cy.wait('@getUser');
+    cy.wait('@getIngredients');
   })
 
   afterEach(() => {
-    cy.clearAllCookies()
+    cy.clearAllCookies();
+    localStorage.clear();
   })
 
   describe('data received and displayed', () => {
@@ -100,6 +111,32 @@ describe(' tests for BurgerConstructor `Stellar Burgers` ', () => {
       cy.get('[data-cy-type="bun"], [data-cy-type="main"], [data-cy-type="sauce"]').first().click();
       cy.get('[data-cy="overlay"]').click({ force: true });
       cy.get('[data-cy="modal"]').should('not.exist');
+    })
+  }),
+
+  describe('the order placed successfully', () => {
+    it('the placing after authorization', () => {
+      cy.get('[data-cy-type="bun"]').first().within(() => {
+        cy.get('button').contains('Добавить').click();
+      });
+      cy.get('[data-cy-type="main"]').first().within(() => {
+        cy.get('button').contains('Добавить').click();
+      });
+      cy.get('[data-cy-type="sauce"]').first().within(() => {
+        cy.get('button').contains('Добавить').click();
+      });
+
+      cy.get('[ data-cy="order-button"]').should('exist').click();
+      cy.wait('@postToOrders');
+
+      cy.get('[data-cy="modal"]').contains('идентификатор заказа').should('be.visible');
+      cy.contains('66123').should('exist');
+      cy.get('[data-cy="modal_close-button"]').click();
+      cy.get('[data-cy="modal"]').should('not.exist');
+
+      cy.get('[data-cy="bun-top"]').should('not.exist');
+      cy.get('[data-cy="bun-bottom"]').should('not.exist');
+      cy.get('[data-cy="ingredient"]').should('not.exist');
     })
   })
 })

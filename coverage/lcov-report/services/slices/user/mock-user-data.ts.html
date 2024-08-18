@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/88</span>
+                <span class='fraction'>94/94</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>88/88</span>
+                <span class='fraction'>94/94</span>
             </div>
         
             
@@ -150,7 +150,14 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -237,19 +244,26 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { userInitialState } from "./User";
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { userInitialState } from './User';
 &nbsp;
 export const initialState = userInitialState;
 &nbsp;
 export const loginDataMock = {
   email: 'moskvich@mail.ru',
   name: 'Сергей'
-}
+};
 &nbsp;
 export const updateDataMock = {
   email: 'moskvich88@mail.ru',
   name: 'Серёга'
-}
+};
 &nbsp;
 export const userOrdersMock = [
   {
@@ -261,7 +275,7 @@ export const userOrdersMock = [
     number: 5221,
     ingredients: [
       {
-        _id: '78gd4g85dr44', 
+        _id: '78gd4g85dr44',
         name: 'Луковые кольца с марсианскими специями',
         type: 'main',
         proteins: 38,
@@ -270,11 +284,12 @@ export const userOrdersMock = [
         calories: 36,
         price: 849,
         image: 'https://code.s3.yandex.net/react/code/onion-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
         image_mobile: 'https://code.s3.yandex.net/react/code/onion-02-large.png'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -283,8 +298,10 @@ export const userOrdersMock = [
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
       }
     ]
   },
@@ -297,7 +314,7 @@ export const userOrdersMock = [
     number: 6954,
     ingredients: [
       {
-        _id: '78gd4g85dr44', 
+        _id: '78gd4g85dr44',
         name: 'Луковые кольца с марсианскими специями',
         type: 'main',
         proteins: 38,
@@ -306,11 +323,12 @@ export const userOrdersMock = [
         calories: 36,
         price: 849,
         image: 'https://code.s3.yandex.net/react/code/onion-02.png',
-        image_large: 'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
+        image_large:
+          'https://code.s3.yandex.net/react/code/onion-02-mobile.png',
         image_mobile: 'https://code.s3.yandex.net/react/code/onion-02-large.png'
       },
       {
-        _id: '7gfeg4r7g74sesb', 
+        _id: '7gfeg4r7g74sesb',
         name: 'Лунный соус',
         type: 'sauce',
         proteins: 17,
@@ -319,19 +337,22 @@ export const userOrdersMock = [
         calories: 152,
         price: 355,
         image: 'https://code.s3.yandex.net/react/code/moon-sauce-01.png',
-        image_large: 'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
+        image_large:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-mobile.png',
+        image_mobile:
+          'https://code.s3.yandex.net/react/code/moon-sauce-01-large.png'
       }
     ]
   }
-]</pre></td></tr></table></pre>
+];
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-13T21:53:20.050Z
+                at 2024-08-18T17:53:37.153Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
